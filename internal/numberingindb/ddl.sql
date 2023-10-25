@@ -1,0 +1,19 @@
+CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
+
+CREATE FUNCTION set_updated_at() RETURNS TRIGGER AS $$
+BEGIN
+    IF (TG_OP = 'UPDATE') THEN
+        NEW.updated_at := now();
+        return NEW;
+    END IF;
+END;
+$$ LANGUAGE plpgsql;
+
+CREATE TABLE tests (
+    id UUID DEFAULT uuid_generate_v4() PRIMARY KEY,
+    created_at TIMESTAMP (3) WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP NOT NULL,
+    updated_at TIMESTAMP (3) WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP NOT NULL,
+    deleted BOOLEAN DEFAULT FALSE
+);
+
+CREATE OR REPLACE TRIGGER trg_tests_updated_at BEFORE UPDATE ON tests FOR EACH ROW EXECUTE PROCEDURE set_updated_at();

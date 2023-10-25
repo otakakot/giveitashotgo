@@ -1,1 +1,3 @@
 # giveitashotgo
+
+Goでいろいろ試してみるリポジトリ
