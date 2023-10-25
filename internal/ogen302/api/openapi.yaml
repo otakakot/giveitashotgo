@@ -1,0 +1,50 @@
+openapi: 3.0.3
+info:
+  title: ogen
+  description: |-
+    ogen API documentation.
+  termsOfService: https://localhost:8080
+  contact:
+    email: kotaro.otaka@example.com
+  license:
+    name: MIT
+  version: 0.0.1
+externalDocs:
+  description: Find out more about Swagger
+  url: http://swagger.io
+servers:
+  - url: http://localhost:8080
+tags:
+  - name: Sample
+    description: Sample
+paths:
+  /a:
+    get:
+      tags:
+        - Sample
+      summary: a
+      description: a
+      operationId: a
+      responses:
+        '302':
+          description: Found
+          headers:
+            Location:
+              schema:
+                type: string
+                format: uri
+                example: http://localhost:8080/b
+        '500':
+          description: Internal Server Error
+  /b:
+    get:
+      tags:
+        - Sample
+      summary: b
+      description: b
+      operationId: b
+      responses:
+        '200':
+          description: OK
+        '500':
+          description: Internal Server Error
